@@ -1,15 +1,41 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Calculates the Inverse matrix of a given square matrix. 
+##First check if the inverse exist or not. If not, calculates it.
 
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix <- function(x = matrix() ) {
+  i <- NULL
+  
+  set <- function(y) {
+    x <<- y
+    i <<- NULL
+  }
+  
+  get <- function() {
+    x
+  }
+  
+  setInverse <- function(inverse) {
+    i <<- inverse
+  }
+  
+  getInverse <- function() {
+    i
+  }
+  
+  list(set = set, get = get, setInverse = setInverse, getInverse = getInverse)
 }
 
 
-## Write a short comment describing this function
-
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  
+  m <- x$getInverse()
+  
+  if(!is.null(m) ) {
+    message("Yaay inverse exist")
+    return(m)
+  }
+
+  mx <- x$get()
+  m <- solve(mx)
+  x$setInverse(m)
+  m
 }
